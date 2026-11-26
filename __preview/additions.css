@@ -257,7 +257,7 @@ html, body, main { overflow-x: clip !important; overflow-y: visible !important; 
 .ip-u path { fill: none; stroke: #1B1AFE; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 420; stroke-dashoffset: 420; animation: ipDraw .9s cubic-bezier(.22,.61,.36,1) .5s forwards; }
 .ip-stage { position: relative; margin-bottom: 56px; }
 @media (min-width: 1024px) { .ip-stage { margin-bottom: 24px; } }
-.ip-win { position: absolute; left: 3%; width: 94%; bottom: -12%; background: #fff; border: 1px solid #E7EBE9; border-radius: 14px; box-shadow: 0 1px 2px rgba(13,31,26,.06), 0 12px 32px rgba(13,31,26,.10); color: #0D1F1A; opacity: 0; transform: translateY(18px); animation: ipRise .6s cubic-bezier(.22,.61,.36,1) 1s forwards; }
+.ip-win { position: absolute; left: 3%; width: 94%; bottom: -12%; background: rgba(255,255,255,.86); border: 1px solid #E7EBE9; border-radius: 14px; box-shadow: 0 1px 2px rgba(13,31,26,.06), 0 12px 32px rgba(13,31,26,.10); color: #0D1F1A; opacity: 0; transform: translateY(18px); animation: ipRise .6s cubic-bezier(.22,.61,.36,1) 1.6s forwards; }
 @media (min-width: 1024px) { .ip-win { left: -4%; width: 74%; bottom: -6%; } }
 .ip-win-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 1px solid #E7EBE9; }
 .ip-win-bar i { width: 8px; height: 8px; border-radius: 50%; background: #E7EBE9; }
@@ -275,18 +275,18 @@ html, body, main { overflow-x: clip !important; overflow-y: visible !important; 
 .ip-win-rows .st span { position: absolute; right: 0; top: 0; white-space: nowrap; }
 .ip-win-rows .a { color: #47534E; }
 .ip-win-rows .b { color: #1B1AFE; font-weight: 600; opacity: 0; display: inline-flex; gap: 4px; align-items: center; }
-.ip-win-rows li:nth-child(1) { animation-delay: 1.5s; } .ip-win-rows li:nth-child(2) { animation-delay: 1.65s; }
-.ip-win-rows li:nth-child(3) { animation-delay: 1.8s; } .ip-win-rows li:nth-child(4) { animation-delay: 1.95s; }
-.ip-win-rows li:nth-child(1) .a { animation: ipOut .2s 2.7s forwards; } .ip-win-rows li:nth-child(1) .b { animation: ipIn .25s 2.75s forwards; } .ip-win-rows li:nth-child(1) .ip-ic { animation: ipNudge .5s 2.7s; }
-.ip-win-rows li:nth-child(2) .a { animation: ipOut .2s 2.95s forwards; } .ip-win-rows li:nth-child(2) .b { animation: ipIn .25s 3s forwards; } .ip-win-rows li:nth-child(2) .ip-ic { animation: ipNudge .5s 2.95s; }
-.ip-win-rows li:nth-child(3) .a { animation: ipOut .2s 3.2s forwards; } .ip-win-rows li:nth-child(3) .b { animation: ipIn .25s 3.25s forwards; } .ip-win-rows li:nth-child(3) .ip-ic { animation: ipNudge .5s 3.2s; }
-.ip-win-rows li:nth-child(4) .a { animation: ipOut .2s 3.45s forwards; } .ip-win-rows li:nth-child(4) .b { animation: ipIn .25s 3.5s forwards; } .ip-win-rows li:nth-child(4) .ip-ic { animation: ipNudge .5s 3.45s; }
+.ip-win-rows li:nth-child(1) { animation-delay: 2.1s; } .ip-win-rows li:nth-child(2) { animation-delay: 2.25s; }
+.ip-win-rows li:nth-child(3) { animation-delay: 2.4s; } .ip-win-rows li:nth-child(4) { animation-delay: 2.55s; }
+.ip-win-rows li:nth-child(1) .a { animation: ipOut .2s 3.3s forwards; } .ip-win-rows li:nth-child(1) .b { animation: ipIn .25s 3.35s forwards; } .ip-win-rows li:nth-child(1) .ip-ic { animation: ipNudge .5s 3.3s; }
+.ip-win-rows li:nth-child(2) .a { animation: ipOut .2s 3.55s forwards; } .ip-win-rows li:nth-child(2) .b { animation: ipIn .25s 3.6s forwards; } .ip-win-rows li:nth-child(2) .ip-ic { animation: ipNudge .5s 3.55s; }
+.ip-win-rows li:nth-child(3) .a { animation: ipOut .2s 3.8s forwards; } .ip-win-rows li:nth-child(3) .b { animation: ipIn .25s 3.85s forwards; } .ip-win-rows li:nth-child(3) .ip-ic { animation: ipNudge .5s 3.8s; }
+.ip-win-rows li:nth-child(4) .a { animation: ipOut .2s 4.05s forwards; } .ip-win-rows li:nth-child(4) .b { animation: ipIn .25s 4.1s forwards; } .ip-win-rows li:nth-child(4) .ip-ic { animation: ipNudge .5s 4.05s; }
 .ip-link { display: none; }
 .ip-out { display: none; }
 @media (min-width: 1024px) {
   .ip-link { display: block; position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-  .ip-link path { fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 4 7; opacity: 0; animation: ipIn .01s 3.8s forwards, ipFlow 1.2s linear 3.8s 2; }
-  .ip-out { --acc: #fff; display: flex; position: absolute; right: -4%; top: 28%; align-items: center; gap: 10px; padding: 12px 14px 12px 12px; border-radius: 12px; background: #1B1AFE; color: #fff; opacity: 0; transform: translateY(10px) scale(.96); animation: ipRise .5s cubic-bezier(.22,.61,.36,1) 4.2s forwards; }
+  .ip-link path { fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 4 7; opacity: 0; animation: ipIn .01s 4.4s forwards, ipFlow 1.2s linear 4.4s 2; }
+  .ip-out { --acc: #fff; display: flex; position: absolute; right: -4%; top: 28%; align-items: center; gap: 10px; padding: 12px 14px 12px 12px; border-radius: 12px; background: #1B1AFE; color: #fff; opacity: 0; transform: translateY(10px) scale(.96); animation: ipRise .5s cubic-bezier(.22,.61,.36,1) 4.8s forwards; }
   .ip-out .ip-ic { width: 30px; height: 30px; }
   .ip-out b { display: block; font-size: 14px; } .ip-out small { font-size: 12px; opacity: .85; }
 }
