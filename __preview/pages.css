@@ -1,0 +1,196 @@
+/* Preview: photos on inner pages. Radius/shadow reuse the live about-page tokens
+   (--about-shadow-lift: 0 20px 60px rgba(27,26,254,.14); rounded-3xl = 24px as on live hero cards). */
+.ip-band { max-width: 1080px; margin: 48px auto 0; }
+.ip-band img {
+  display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover;
+  border-radius: 24px; box-shadow: 0 20px 60px rgba(27, 26, 254, .14);
+}
+@media (min-width: 768px) { .ip-band { margin-top: 56px; } .ip-band img { aspect-ratio: 21 / 9; } }
+
+/* ---------- Services menu: 4 categories ---------- */
+/* Desktop mega-panel — from the owner's mockup: intro column | divider | 2×2 category tiles */
+.ipm-panel { position: fixed; left: 50%; transform: translateX(-50%); width: min(1180px, calc(100vw - 48px));
+  display: grid; grid-template-columns: 280px 1fr; gap: 40px; align-items: center;
+  background: #fff; border: 1px solid #E7EBE9; border-radius: 28px; box-shadow: 0 20px 60px rgba(27,26,254,.14);
+  padding: 40px 40px 40px 48px; z-index: 60; font-family: Inter, system-ui, sans-serif; text-align: left; }
+.ipm-panel::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }   /* hover bridge */
+@media (prefers-reduced-motion: no-preference) { .ipm-panel:not([hidden]) { animation: ipm-in .28s cubic-bezier(.22,1,.36,1); } }
+@keyframes ipm-in { from { opacity: 0; transform: translate(-50%, -6px); } }
+.ipm-intro { padding-right: 40px; border-right: 1px solid #E7EBE9; align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
+.ipm-h { margin: 0 0 12px; font-size: 32px; font-weight: 700; letter-spacing: -.025em; color: #0D1F1A; line-height: 1.1; }
+.ipm-sub { margin: 0 0 24px; font-size: 16px; line-height: 1.55; color: #47534E; }
+.ipm-all { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 20px; border-radius: 9999px;
+  background: rgba(27,26,254,.08); color: #1B1AFE; font-weight: 600; font-size: 15px; text-decoration: none; transition: background-color .2s; }
+.ipm-all:hover { background: rgba(27,26,254,.14); }
+.ipm-all svg, .ipm-go svg { width: 18px; height: 18px; }
+.ipm-tiles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ipm-tiles a { display: flex; align-items: center; gap: 16px; padding: 20px; border: 1px solid #E7EBE9; border-radius: 20px; background: #fff;
+  color: #0D1F1A; text-decoration: none; transition: border-color .2s, box-shadow .2s; height: 100%; }
+.ipm-tiles a:hover { border-color: rgba(27,26,254,.3); box-shadow: 0 4px 24px rgba(27,26,254,.08); }
+.ipm-ico { flex: 0 0 52px; height: 52px; border-radius: 14px; background: rgba(27,26,254,.08); color: #1B1AFE; display: flex; align-items: center; justify-content: center; }
+.ipm-ico svg { width: 26px; height: 26px; }
+.ipm-txt { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.ipm-txt strong { font-size: 16px; font-weight: 700; }
+.ipm-txt span { font-size: 14px; line-height: 1.45; color: #47534E; }
+.ipm-go { color: #1B1AFE; transition: transform .2s; }
+.ipm-tiles a:hover .ipm-go { transform: translateX(3px); }
+/* Services trigger highlighted while open, as in the mockup */
+.ipm-wrap.is-open > div:first-child { background: rgba(27,26,254,.08); border-radius: 9999px; }
+.ipm-wrap.is-open a[href="/services"], .ipm-wrap.is-open button { color: #1B1AFE; }
+.ipm-wrap.is-open button svg { transform: rotate(180deg); }
+@media (max-width: 1100px) { .ipm-panel { grid-template-columns: 1fr; } .ipm-intro { border-right: 0; padding-right: 0; } }
+.ipm-panel[hidden], .ipm-drawer[hidden] { display: none; }
+.ipm-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.ipm-title { margin: 0 0 10px; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #47534E; line-height: 1.4; }
+.ipm-group ul { list-style: none; margin: 0; padding: 0; }
+.ipm-group a { display: block; padding: 7px 0; font-size: 14px; line-height: 1.4; color: #0D1F1A; text-decoration: none; }
+.ipm-group a:hover { color: #1B1AFE; }
+.ipm-res { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 20px; padding-top: 16px; border-top: 1px solid #E7EBE9; }
+.ipm-res a { font-size: 13px; color: #47534E; text-decoration: none; padding: 6px 0; }
+.ipm-res a:hover { color: #1B1AFE; }
+.ipm-panel a:focus-visible, .ipm-drawer a:focus-visible, .ipm-drawer button:focus-visible, .ip-wa-float:focus-visible { outline: 3px solid #1B1AFE; outline-offset: 2px; border-radius: 6px; }
+
+/* Mobile drawer */
+.ipm-drawer { position: fixed; inset: 0; z-index: 100; background: #fff; overflow-y: auto; padding: 16px 20px 24px; font-family: Inter, system-ui, sans-serif; display: flex; flex-direction: column; }
+.ipm-drawer-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.ipm-home { font-weight: 700; color: #0D1F1A; text-decoration: none; padding: 10px 0; }
+.ipm-close { width: 44px; height: 44px; border: 1px solid #E7EBE9; border-radius: 12px; background: #fff; font-size: 26px; line-height: 1; color: #0D1F1A; cursor: pointer; }
+.ipm-drawer nav { flex: 1; }
+.ipm-drawer summary { font-size: 18px; font-weight: 700; padding: 14px 0; cursor: pointer; color: #0D1F1A; }
+.ipm-drawer .ipm-group { padding: 4px 0 12px 12px; }
+.ipm-drawer .ipm-group a { padding: 10px 0; font-size: 15px; }
+.ipm-top { display: block; font-size: 18px; font-weight: 700; padding: 14px 0; border-top: 1px solid #E7EBE9; color: #0D1F1A; text-decoration: none; }
+.ipm-drawer-cta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+.ipm-cta, .ipm-wa { display: flex; align-items: center; justify-content: center; gap: 8px; height: 48px; border-radius: 12px; font-weight: 600; text-decoration: none; }
+.ipm-cta { background: #1B1AFE; color: #fff; }
+.ipm-wa { background: #075E54; color: #fff; }
+.ipm-wa svg { width: 18px; height: 18px; }
+@media (max-width: 1100px) { .ipm-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* ---------- Tarifs: centred pricing cards (inspiration), same content & brand tokens ---------- */
+.ip-tarifs article { text-align: center; align-items: center; padding: 36px 28px 32px !important; border-width: 1px !important; border-radius: 24px !important; }
+.ip-tarifs article > div:first-child:not(.rounded-full) { display: none; }            /* decorative icon square */
+.ip-tarifs article > .rounded-full { margin: 0 auto 14px; }                             /* badge */
+.ip-tarifs article h3 { font-size: 22px !important; font-weight: 600 !important; margin-bottom: 8px !important; }
+.ip-tarifs article > p { min-height: 0 !important; max-width: 30ch; margin: 0 auto 20px !important; }
+.ip-tarifs article .mb-5 { width: 100%; margin-bottom: 20px !important; }
+.ip-tarifs article .mb-5 > div:first-child { display: none; }                          /* "Prix" label */
+.ip-tarifs article .mb-5 > div { justify-content: center; }
+.ip-tarifs article .text-3xl { font-size: 44px !important; line-height: 1.05; letter-spacing: -.03em; font-weight: 600 !important; }
+/* Button moves above the feature list, full width, followed by a short divider */
+.ip-tarifs article .mt-auto { order: 5; width: 100%; margin: 0 0 22px !important; }
+.ip-tarifs article .mt-auto a { width: 100%; border-radius: 9999px !important; }
+/* Outline buttons on standard plans, filled only on the featured (dark) plan — as in the inspiration */
+.ip-tarifs article:not(.text-white) .mt-auto a { background: #fff !important; color: #0D1F1A !important; border: 1px solid rgba(13,31,26,.35) !important; box-shadow: none !important; }
+.ip-tarifs article:not(.text-white) .mt-auto a:hover { background: #1B1AFE !important; border-color: #1B1AFE !important; color: #fff !important; }
+.ip-tarifs article .mt-auto::after { content: ""; display: block; width: 64px; height: 1px; margin: 22px auto 0; background: currentColor; opacity: .25; }
+.ip-tarifs article ul { order: 6; margin: 0 !important; width: 100%; }
+.ip-tarifs article ul li { justify-content: center; }
+.ip-tarifs article ul li > svg, .ip-tarifs article ul li > div:has(svg) { display: none; } /* check icons */
+.ip-tarifs article ul li span { font-size: 14px; }
+.ip-tarifs article > *:not(.mt-auto):not(ul):last-child { order: 7; margin-top: 12px; }   /* "Sans engagement" note */
+
+/* ================= À propos — layout from the owner's inspiration, Incubia tokens only ================= */
+.ipa { --blue: #1B1AFE; --navy: #0825A3; --head: #0D1F1A; --body: #47534E; --border: #E7EBE9; --surface: #F9FAF9;
+  font-family: Inter, system-ui, sans-serif; color: var(--head); }
+.ipa *, .ipa *::before, .ipa *::after { box-sizing: border-box; }
+.ipa-wrap { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.ipa-eyebrow { margin: 0 0 14px; font-size: 14px; font-weight: 600; color: var(--head); }
+.ipa-eyebrow span { color: var(--blue); margin-right: 6px; font-weight: 700; }
+.ipa-center { text-align: center; }
+.ipa-h2 { margin: 0 0 20px; font-size: clamp(30px, 4vw, 48px); line-height: 1.1; font-weight: 700; letter-spacing: -.025em; }
+.ipa-h2 span, .ipa-hero h1 span { color: var(--blue); }
+.ipa-p { margin: 0 0 14px; font-size: 16px; line-height: 1.65; color: var(--body); max-width: 38rem; }
+.ipa-btn { display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 24px; border-radius: 9999px; background: var(--blue); color: #fff; font-weight: 600; font-size: 15px; text-decoration: none; white-space: nowrap; transition: transform .15s; }
+.ipa-btn svg { width: 16px; height: 16px; }
+.ipa-btn:hover { transform: translateY(-1px); }
+.ipa a:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
+/* Hero: navy panel + photo */
+.ipa-hero { background: var(--navy); color: #fff; overflow: hidden; }
+.ipa-hero-grid { display: grid; align-items: center; gap: 40px; padding-top: 64px; padding-bottom: 64px; }
+.ipa-hero .ipa-eyebrow { color: rgba(255,255,255,.85); }
+.ipa-hero .ipa-eyebrow span { color: #fff; }
+.ipa-hero h1 { margin: 0 0 20px; font-size: clamp(38px, 5.4vw, 64px); line-height: 1.05; font-weight: 800; letter-spacing: -.03em; }
+.ipa-hero h1 span { color: #fff; text-decoration: underline; text-decoration-color: rgba(255,255,255,.35); text-underline-offset: 8px; text-decoration-thickness: 3px; }
+.ipa-lead { margin: 0 0 32px; font-size: 17px; line-height: 1.65; color: rgba(255,255,255,.88); max-width: 36rem; }
+.ipa-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
+.ipa-hero .ipa-btn { background: #fff; color: var(--blue); }
+.ipa-link { color: #fff; font-weight: 600; font-size: 15px; text-underline-offset: 4px; }
+.ipa-hero .ipa-btn:focus-visible, .ipa-link:focus-visible { outline-color: #fff !important; }
+.ipa-hero-media { margin: 0; border-radius: 24px; overflow: hidden; }
+.ipa-hero-media img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+
+/* Blue scrolling band */
+.ipa-band { background: var(--blue); color: #fff; overflow: hidden; padding: 18px 0; }
+.ipa-band-track { display: flex; align-items: center; gap: 28px; width: max-content; font-size: 20px; font-weight: 600; white-space: nowrap; }
+.ipa-band-track i { font-style: normal; font-size: 22px; opacity: .85; }
+@media (prefers-reduced-motion: no-preference) { .ipa-band-track { animation: ipa-marquee 40s linear infinite; } }
+@keyframes ipa-marquee { to { transform: translateX(-50%); } }
+
+/* Mission: photo collage + text */
+.ipa-mission { background: #fff; padding: 96px 0; }
+.ipa-mission-grid { display: grid; gap: 48px; align-items: center; }
+.ipa-collage { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; grid-template-rows: 1fr 1fr; gap: 14px; aspect-ratio: 1 / 1; max-width: 560px; }
+.ipa-collage::before { content: ""; position: absolute; left: -14px; top: -14px; width: 55%; height: 55%; border-radius: 28px; background: var(--blue); z-index: 0; }
+.ipa-collage img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
+.ipa-collage .c2 { border-radius: 20px 20px 80px 20px; }
+.ipa-collage .c4 { border-radius: 20px 80px 20px 20px; }
+.ipa-pillars { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--border); }
+.ipa-pillars li { padding: 16px 0; border-bottom: 1px solid var(--border); display: grid; gap: 4px; }
+.ipa-pillars strong { font-size: 17px; color: var(--blue); }
+.ipa-pillars span { font-size: 15px; line-height: 1.55; color: var(--body); }
+
+/* Services: cards with blue square icons */
+.ipa-services { background: var(--surface); padding: 96px 0; }
+.ipa-head-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 40px; }
+.ipa-head-row .ipa-h2 { margin: 0; max-width: 18ch; }
+.ipa-cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; }
+.ipa-cards a { position: relative; display: flex; flex-direction: column; height: 100%; padding: 28px; background: #fff; border: 1px solid var(--border); border-radius: 20px; color: var(--head); text-decoration: none; transition: box-shadow .25s, border-color .25s; overflow: hidden; }
+.ipa-cards a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--blue); transform: scaleX(0); transform-origin: 0 50%; transition: transform .35s cubic-bezier(.22,1,.36,1); }
+.ipa-cards a:hover { box-shadow: 0 4px 24px rgba(27,26,254,.08); border-color: rgba(27,26,254,.25); }
+.ipa-cards a:hover::after { transform: scaleX(1); }
+.ipa-ico { width: 52px; height: 52px; border-radius: 14px; background: var(--blue); color: #fff; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+.ipa-ico svg { width: 26px; height: 26px; }
+.ipa-ico--soft { background: rgba(27,26,254,.08); color: var(--blue); }
+.ipa-cards h3, .ipa-vals h3 { margin: 0 0 8px; font-size: 19px; font-weight: 700; letter-spacing: -.01em; }
+.ipa-cards p, .ipa-vals p { margin: 0 0 20px; font-size: 15px; line-height: 1.6; color: var(--body); }
+.ipa-more { margin-top: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--blue); }
+.ipa-more svg { width: 14px; height: 14px; transition: transform .2s; }
+.ipa-cards a:hover .ipa-more svg { transform: translateX(3px); }
+
+/* Parcours: horizontal numbered timeline */
+.ipa-story { background: #fff; padding: 96px 0; }
+.ipa-steps { list-style: none; margin: 48px 0 0; padding: 0; display: grid; gap: 40px; }
+.ipa-steps li { position: relative; text-align: center; }
+.ipa-step-n { position: relative; z-index: 1; display: inline-flex; width: 72px; height: 72px; border-radius: 50%; background: var(--blue); color: #fff; align-items: center; justify-content: center; margin-bottom: 18px; box-shadow: 0 0 0 8px rgba(27,26,254,.08); }
+.ipa-step-n b { font-size: 18px; }
+.ipa-steps h3 { margin: 0 0 8px; font-size: 19px; font-weight: 700; }
+.ipa-steps p { margin: 0 auto; max-width: 26rem; font-size: 15px; line-height: 1.6; color: var(--body); }
+
+/* Valeurs */
+.ipa-values { background: var(--surface); padding: 96px 0; }
+.ipa-vals { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 20px; }
+.ipa-vals li { background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 28px; }
+
+@media (min-width: 768px) {
+  .ipa-cards { grid-template-columns: repeat(2, 1fr); }
+  .ipa-vals { grid-template-columns: repeat(2, 1fr); }
+  .ipa-steps { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .ipa-steps li:not(:last-child)::after { content: ""; position: absolute; top: 36px; left: calc(50% + 52px); right: calc(-50% + 52px); height: 2px; background: var(--border); }
+}
+@media (min-width: 1024px) {
+  .ipa-hero-grid { grid-template-columns: 1.05fr 1fr; gap: 64px; padding-top: 88px; padding-bottom: 88px; }
+  .ipa-mission-grid { grid-template-columns: 1fr 1fr; gap: 80px; }
+  .ipa-cards { grid-template-columns: repeat(3, 1fr); }
+  .ipa-vals { grid-template-columns: repeat(4, 1fr); }
+  .ipa-mission, .ipa-services, .ipa-story, .ipa-values { padding: 120px 0; }
+}
+@media (prefers-reduced-motion: reduce) { .ipa-btn, .ipa-cards a, .ipa-cards a::after, .ipa-more svg { transition: none; } }
+
+/* Floating WhatsApp — dark green for 4.5:1 contrast with white text */
+.ip-wa-float { position: fixed; right: 20px; bottom: 20px; z-index: 50; display: inline-flex; align-items: center; gap: 8px;
+  height: 48px; padding: 0 18px; border-radius: 9999px; background: #075E54; color: #fff; font: 600 15px Inter, system-ui, sans-serif;
+  text-decoration: none; box-shadow: 0 8px 24px rgba(13,31,26,.25); }
+.ip-wa-float svg { width: 22px; height: 22px; }
+@media (max-width: 640px) { .ip-wa-float span { display: none; } .ip-wa-float { width: 52px; padding: 0; justify-content: center; right: 16px; bottom: 16px; } }
